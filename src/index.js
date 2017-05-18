@@ -2,7 +2,7 @@
 
 const applyDefaultOpts = opts => Object.assign({}, {
 	encoding: 'utf8',
-	chunkSize: 3
+	chunkSize: 10000
 }, opts);
 
 const b64 = () => {
