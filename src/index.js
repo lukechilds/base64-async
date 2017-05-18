@@ -16,6 +16,9 @@ b64.encode = (input, opts) => new Promise(resolve => {
 		input = Buffer.from(input, opts.encoding);
 	}
 
+	const chunkMultiple = 3;
+	opts.chunkSize = Math.max(chunkMultiple, (Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple));
+
 	const bufferLength = input.length;
 	let currentIndex = 0;
 	let output = '';
