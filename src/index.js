@@ -2,7 +2,7 @@
 
 const applyDefaultOpts = opts => Object.assign({}, {
 	encoding: 'utf8',
-	chunkSize: 3
+	chunks: 1
 }, opts);
 
 const b64 = (inut, opts) => {
@@ -16,17 +16,15 @@ b64.encode = (input, opts) => new Promise(resolve => {
 		input = Buffer.from(input, opts.encoding);
 	}
 
-	const chunkMultiple = 3;
-	opts.chunkSize = Math.max(chunkMultiple, (Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple));
-
 	const bufferLength = input.length;
+	const chunkSize = 3 * opts.chunks;
 	let currentIndex = 0;
 	let output = '';
 
 	setImmediate(function encodeChunk() {
-		const chunk = input.slice(currentIndex, currentIndex + opts.chunkSize);
+		const chunk = input.slice(currentIndex, currentIndex + chunkSize);
 		output += chunk.toString('base64');
-		currentIndex += opts.chunkSize;
+		currentIndex += chunkSize;
 		if (currentIndex < bufferLength) {
 			setImmediate(encodeChunk);
 		} else {
