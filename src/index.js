@@ -17,7 +17,11 @@ b64.encode = (input, opts) => new Promise(resolve => {
 	}
 
 	const chunkMultiple = 3;
-	opts.chunkSize = Math.max(chunkMultiple, (Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple));
+	opts.chunkSize = Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple;
+
+	if (opts.chunkSize === 0) {
+		throw new Error('chunkSize must be larger than 0');
+	}
 
 	const bufferLength = input.length;
 	let currentIndex = 0;
