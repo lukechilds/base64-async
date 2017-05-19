@@ -11,3 +11,8 @@ test('b64.encode encodes buffer to Base64', async t => {
 	const result = await b64.encode(values.buffer);
 	t.is(result, values.base64);
 });
+
+test('b64.encode encodes correctly in chunks', async t => {
+	const result = await b64.encode(values.buffer, { chunkSize: 3 });
+	t.is(result, values.base64);
+});
