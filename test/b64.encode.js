@@ -21,3 +21,7 @@ test('b64.encode rounds chunks up to multiples of 3', async t => {
 	const result = await b64.encode(values.buffer, { chunkSize: 1 });
 	t.is(result, values.base64);
 });
+
+test('b64.encode rejects Promise if chunkSize is 0', async t => {
+	await t.throws(b64.encode(values.buffer, { chunkSize: 0 }));
+});
