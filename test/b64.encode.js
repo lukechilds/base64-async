@@ -1,20 +1,13 @@
 import test from 'ava';
 import b64 from '../';
+import values from './fixtures/values';
 
 test('b64.encode encodes string to Base64', async t => {
-	const string = 'This is a test string';
-	const expectedB64String = Buffer.from(string).toString('base64');
-
-	const b64String = await b64.encode(string);
-
-	t.is(b64String, expectedB64String);
+	const result = await b64.encode(values.string);
+	t.is(result, values.base64);
 });
 
 test('b64.encode encodes buffer to Base64', async t => {
-	const buffer = Buffer.from('This is a test string');
-	const expectedB64String = buffer.toString('base64');
-
-	const b64String = await b64.encode(buffer);
-
-	t.is(b64String, expectedB64String);
+	const result = await b64.encode(values.buffer);
+	t.is(result, values.base64);
 });
