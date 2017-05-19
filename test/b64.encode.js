@@ -2,6 +2,11 @@ import test from 'ava';
 import b64 from '../';
 import values from './fixtures/values';
 
+test('b64.encode returns a Promise', t => {
+	const returnValue = b64.encode(values.string);
+	t.true(returnValue instanceof Promise);
+});
+
 test('b64.encode encodes string to Base64', async t => {
 	const result = await b64.encode(values.string);
 	t.is(result, values.base64);
