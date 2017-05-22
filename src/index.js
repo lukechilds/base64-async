@@ -1,7 +1,7 @@
 'use strict';
 
 const applyDefaultOpts = opts => Object.assign({}, {
-	encoding: 'utf8',
+	encoding: null,
 	chunkSize: 10000
 }, opts);
 
@@ -64,6 +64,9 @@ b64.decode = (input, opts) => new Promise(resolve => {
 		if (currentIndex < stringLength) {
 			setImmediate(encodeChunk);
 		} else {
+			if (opts.encoding !== null) {
+				output = output.toString(opts.encoding);
+			}
 			resolve(output);
 		}
 	});
