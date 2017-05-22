@@ -25,13 +25,6 @@ test('b64.decode rounds chunks up to multiples of 4', async t => {
 	t.is(result.toString(), values.string);
 });
 
-test('b64.decode accepts string encoding option', async t => {
-	const utf8Result = await b64.decode(values.base64, { encoding: 'utf8' });
-	const hexResult = await b64.decode(values.base64, { encoding: 'hex' });
-	t.is(utf8Result, values.string);
-	t.is(hexResult, values.hexString);
-});
-
 test('b64.decode rejects Promise if chunkSize is 0', async t => {
 	await t.throws(b64.decode(values.string, { chunkSize: 0 }));
 });
