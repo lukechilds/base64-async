@@ -1,9 +1,6 @@
 'use strict';
 
-const applyDefaultOpts = opts => Object.assign({}, {
-	encoding: null,
-	chunkSize: 10000
-}, opts);
+const applyDefaultOpts = opts => Object.assign({}, { chunkSize: 10000 }, opts);
 
 const b64 = () => {
 
@@ -13,7 +10,7 @@ b64.encode = (input, opts) => new Promise(resolve => {
 	opts = applyDefaultOpts(opts);
 
 	if (!(input instanceof Buffer)) {
-		input = Buffer.from(input, opts.encoding);
+		throw new TypeError('input must be a buffer');
 	}
 
 	const chunkMultiple = 3;
@@ -64,9 +61,6 @@ b64.decode = (input, opts) => new Promise(resolve => {
 		if (currentIndex < stringLength) {
 			setImmediate(encodeChunk);
 		} else {
-			if (opts.encoding !== null) {
-				output = output.toString(opts.encoding);
-			}
 			resolve(output);
 		}
 	});
