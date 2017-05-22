@@ -12,3 +12,9 @@ test('b64.decode decodes Base64 to buffer', async t => {
 	t.true(result instanceof Buffer);
 	t.is(result.toString(), values.string);
 });
+
+test('b64.decode decodes correctly in chunks', async t => {
+	const result = await b64.decode(values.base64, { chunkSize: 4 });
+	t.true(result instanceof Buffer);
+	t.is(result.toString(), values.string);
+});
