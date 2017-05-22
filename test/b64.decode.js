@@ -26,7 +26,7 @@ test('b64.decode rounds chunks up to multiples of 4', async t => {
 });
 
 test('b64.decode rejects Promise if chunkSize is 0', async t => {
-	await t.throws(b64.decode(values.buffer, { chunkSize: 0 }));
+	await t.throws(b64.decode(values.string, { chunkSize: 0 }));
 });
 
 test('b64.decode rejects Promise if input is not a string', async t => {
