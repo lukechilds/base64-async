@@ -1,23 +1,27 @@
 'use strict';
 
-const applyDefaultOpts = opts => Object.assign({}, { chunkSize: 10000 }, opts);
+const validateOpts = (opts, chunkMultiple) => {
+	opts = Object.assign({}, { chunkSize: 10000 }, opts);
+
+	opts.chunkSize = Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple;
+
+	if (opts.chunkSize === 0) {
+		throw new Error('chunkSize must be larger than 0');
+	}
+
+	return opts;
+};
 
 const b64 = () => {
 
 };
 
 b64.encode = (input, opts) => new Promise(resolve => {
-	opts = applyDefaultOpts(opts);
+	const chunkMultiple = 3;
+	opts = validateOpts(opts, chunkMultiple);
 
 	if (!(input instanceof Buffer)) {
 		throw new TypeError('input must be a buffer');
-	}
-
-	const chunkMultiple = 3;
-	opts.chunkSize = Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple;
-
-	if (opts.chunkSize === 0) {
-		throw new Error('chunkSize must be larger than 0');
 	}
 
 	const bufferLength = input.length;
@@ -37,17 +41,11 @@ b64.encode = (input, opts) => new Promise(resolve => {
 });
 
 b64.decode = (input, opts) => new Promise(resolve => {
-	opts = applyDefaultOpts(opts);
+	const chunkMultiple = 4;
+	opts = validateOpts(opts, chunkMultiple);
 
 	if (typeof input !== 'string') {
 		throw new TypeError('input must be a base64 string');
-	}
-
-	const chunkMultiple = 4;
-	opts.chunkSize = Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple;
-
-	if (opts.chunkSize === 0) {
-		throw new Error('chunkSize must be larger than 0');
 	}
 
 	const stringLength = input.length;
