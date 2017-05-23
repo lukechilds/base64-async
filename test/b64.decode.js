@@ -30,9 +30,11 @@ test('b64.decode rounds chunks up to multiples of 4', async t => {
 });
 
 test('b64.decode rejects Promise if chunkSize is 0', async t => {
-	await t.throws(b64.decode(values.string, { chunkSize: 0 }));
+	const error = 	await t.throws(b64.decode(values.string, { chunkSize: 0 }));
+	t.is(error.message, 'chunkSize must be larger than 0');
 });
 
 test('b64.decode rejects Promise if input is not a string', async t => {
-	await t.throws(b64.decode(values.buffer));
+	const error = await t.throws(b64.decode(values.buffer));
+	t.is(error.message, 'input must be a base64 string');
 });
