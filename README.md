@@ -43,8 +43,7 @@ const originalFileBuffer = await b64.decode(b64String);
 
 const b64String = await b64(fileBuffer);
 const originalFileBuffer = await b64(b64String);
-
-// Buffers are encoded, strings are decoded
+// If no method is specified, buffers are encoded, strings are decoded
 ```
 
 ## License
