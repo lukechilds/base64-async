@@ -1,6 +1,6 @@
 {
   "name": "base64-async",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Non-blocking chunked base64 encoding",
   "main": "src/index.js",
   "scripts": {
