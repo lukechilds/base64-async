@@ -12,9 +12,7 @@ const validateOpts = (opts, chunkMultiple) => {
 	return opts;
 };
 
-const b64 = () => {
-
-};
+const b64 = (input, opts) => b64[opts.method](input, opts);
 
 b64.encode = (input, opts) => new Promise(resolve => {
 	const chunkMultiple = 3;
