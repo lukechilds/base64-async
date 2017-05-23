@@ -1,7 +1,7 @@
 {
   "name": "base64-async",
   "version": "0.0.1",
-  "description": "Non-blocking base64 encoding",
+  "description": "Non-blocking chunked base64 encoding",
   "main": "src/index.js",
   "scripts": {
     "test": "xo && nyc ava",
