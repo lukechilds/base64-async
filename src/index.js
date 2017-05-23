@@ -13,11 +13,12 @@ const validateOpts = (opts, chunkMultiple) => {
 };
 
 const b64 = (input, opts) => {
-	if (opts && ['encode', 'decode'].indexOf(opts.method) > -1) {
-		return b64[opts.method](input, opts);
+	if (input instanceof Buffer || typeof input === 'string') {
+		const method = input instanceof Buffer ? 'encode' : 'decode';
+		return b64[method](input, opts);
 	}
 
-	return Promise.reject(new Error('opts.method must be \'encode\' or \'decode\'.'));
+	return Promise.reject(new Error('input must be a buffer or string'));
 };
 
 b64.encode = (input, opts) => new Promise(resolve => {
