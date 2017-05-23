@@ -2,6 +2,10 @@ import test from 'ava';
 import b64 from '../';
 import values from './fixtures/values';
 
+test('b64.encode is a function', t => {
+	t.is(typeof b64.encode, 'function');
+});
+
 test('b64.encode returns a Promise', t => {
 	const returnValue = b64.encode(values.buffer);
 	t.true(returnValue instanceof Promise);
