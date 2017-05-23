@@ -38,6 +38,13 @@ b64.encode(fileBuffer)
 
 const b64String = await b64.encode(fileBuffer);
 const originalFileBuffer = await b64.decode(b64String);
+
+// which is equivalent to this
+
+const b64String = await b64(fileBuffer);
+const originalFileBuffer = await b64(b64String);
+
+// Buffers are encoded, strings are decoded
 ```
 
 ## License
