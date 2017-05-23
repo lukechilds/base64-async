@@ -18,7 +18,7 @@ const b64 = (input, opts) => {
 		return b64[method](input, opts);
 	}
 
-	return Promise.reject(new Error('input must be a buffer or string'));
+	return Promise.reject(new TypeError('input must be a buffer or string'));
 };
 
 b64.encode = (input, opts) => new Promise(resolve => {
