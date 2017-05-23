@@ -13,3 +13,7 @@ test('b64 calls b64[opts.method]', async t => {
 	t.true(decodeResult instanceof Buffer);
 	t.is(decodeResult.toString(), values.string);
 });
+
+test('b64 rejects Promise if method is not \'encode\' or \'decode\'', async t => {
+	await t.throws(b64(values.buffer));
+});
