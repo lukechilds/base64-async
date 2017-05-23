@@ -16,5 +16,5 @@ test('b64 calls b64[opts.method]', async t => {
 
 test('b64 rejects Promise if method is not \'encode\' or \'decode\'', async t => {
 	const error = await t.throws(b64(values.buffer));
-	t.is(error.message, 'method must be \'encode\' or \'decode\'.');
+	t.is(error.message, 'opts.method must be \'encode\' or \'decode\'.');
 });

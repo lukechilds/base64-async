@@ -6,7 +6,7 @@ const validateOpts = (opts, chunkMultiple) => {
 	opts.chunkSize = Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple;
 
 	if (opts.chunkSize === 0) {
-		throw new Error('chunkSize must be larger than 0');
+		throw new Error('opts.chunkSize must be larger than 0');
 	}
 
 	return opts;
@@ -17,7 +17,7 @@ const b64 = (input, opts) => {
 		return b64[opts.method](input, opts);
 	}
 
-	return Promise.reject(new Error('method must be \'encode\' or \'decode\'.'));
+	return Promise.reject(new Error('opts.method must be \'encode\' or \'decode\'.'));
 };
 
 b64.encode = (input, opts) => new Promise(resolve => {
