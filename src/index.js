@@ -12,7 +12,13 @@ const validateOpts = (opts, chunkMultiple) => {
 	return opts;
 };
 
-const b64 = (input, opts) => b64[opts.method](input, opts);
+const b64 = (input, opts) => {
+	if (opts && ['encode', 'decode'].indexOf(opts.method) > -1) {
+		return b64[opts.method](input, opts);
+	}
+
+	return Promise.reject(new Error('method must be \'encode\' or \'decode\'.'));
+};
 
 b64.encode = (input, opts) => new Promise(resolve => {
 	const chunkMultiple = 3;
