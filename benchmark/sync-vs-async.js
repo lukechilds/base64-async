@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const b64 = require('../');
 const prettyBytes = require('pretty-bytes');
 
+const bytesToBenchmark = [10000, 100000, 1000000, 10000000];
+
 const timer = {
   reset: () => timer.startTime = process.hrtime(),
   duration: () => process.hrtime(timer.startTime)[1] / 1000000
@@ -40,8 +42,7 @@ const bench = noOfBytes => Promise.resolve().then(async () => {
 });
 
 (async () => {
-  await bench(10000)
-  await bench(100000);
-  await bench(1000000);
-  await bench(10000000);
+  for(noOfBytes of bytesToBenchmark) {
+    await bench(noOfBytes);
+  }
 })();
