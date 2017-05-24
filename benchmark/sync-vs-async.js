@@ -24,7 +24,7 @@ const bench = noOfBytes => Promise.resolve().then(async () => {
 
   console.log('Decoding sync...');
   timer.reset();
-  Buffer.from(randomBytesBase64, 'base64').toString();
+  Buffer.from(randomBytesBase64, 'base64');
   results.decodeSync = timer.duration();
 
   console.log('Encoding async...');
