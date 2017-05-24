@@ -9,7 +9,7 @@ const timer = {
   duration: () => process.hrtime(timer.startTime)[1] / 1000000
 };
 
-const bench = noOfBytes => Promise.resolve().then(() => {
+const bench = noOfBytes => Promise.resolve().then(async () => {
   const results = {};
 
   console.log(`Generating ${prettyBytes(noOfBytes)} of random binary data...`);
@@ -27,22 +27,21 @@ const bench = noOfBytes => Promise.resolve().then(() => {
 
   console.log('Encoding async...');
   timer.reset();
-  return b64(randomBytes)
-    .then(() => {
-      results.encodeAsync = timer.duration();
+  await b64(randomBytes);
+  results.encodeAsync = timer.duration();
 
-      console.log('Decoding async...');
-      timer.reset();
-      return b64(randomBytesBase64).then(() => {
-        results.decodeAsync = timer.duration();
-        console.log(``);
+  console.log('Decoding async...');
+  timer.reset();
+  await b64(randomBytesBase64);
+  results.decodeAsync = timer.duration();
 
-        return results;
-      });
-    })
+  console.log();
+  return results;
 });
 
-bench(10000)
-  .then(() => bench(100000))
-  .then(() => bench(1000000))
-  .then(() => bench(10000000));
+(async () => {
+  await bench(10000)
+  await bench(100000);
+  await bench(1000000);
+  await bench(10000000);
+})();

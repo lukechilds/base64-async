@@ -4,7 +4,7 @@
   "description": "Non-blocking chunked base64 encoding",
   "main": "src/index.js",
   "scripts": {
-    "bench": "./benchmark/sync-vs-async.js",
+    "bench": "node --harmony-async-await benchmark/sync-vs-async.js",
     "test": "xo && nyc ava",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
