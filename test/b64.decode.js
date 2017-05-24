@@ -13,20 +13,17 @@ test('b64.decode returns a Promise', t => {
 
 test('b64.decode decodes Base64 to buffer', async t => {
 	const result = await b64.decode(values.base64);
-	t.true(result instanceof Buffer);
-	t.is(result.toString(), values.string);
+	t.true(Buffer.compare(result, values.buffer) === 0);
 });
 
 test('b64.decode decodes correctly in chunks', async t => {
 	const result = await b64.decode(values.base64, { chunkSize: 4 });
-	t.true(result instanceof Buffer);
-	t.is(result.toString(), values.string);
+	t.true(Buffer.compare(result, values.buffer) === 0);
 });
 
 test('b64.decode rounds chunks up to multiples of 4', async t => {
 	const result = await b64.decode(values.base64, { chunkSize: 2 });
-	t.true(result instanceof Buffer);
-	t.is(result.toString(), values.string);
+	t.true(Buffer.compare(result, values.buffer) === 0);
 });
 
 test('b64.decode rejects Promise if chunkSize is 0', async t => {

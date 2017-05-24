@@ -13,8 +13,7 @@ test('b64 calls b64.encode on buffers', async t => {
 
 test('b64 calls b64.decode on strings', async t => {
 	const result = await b64(values.base64);
-	t.true(result instanceof Buffer);
-	t.is(result.toString(), values.string);
+	t.true(Buffer.compare(result, values.buffer) === 0);
 });
 
 test('b64 rejects Promise if input is not a buffer or string', async t => {
