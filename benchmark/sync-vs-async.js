@@ -8,7 +8,7 @@ const Table = require('cli-table');
 const timeSpan = require('time-span');
 const b64 = require('../');
 
-const bytesToBenchmark = [10000, 100000, 1000000, 10000000];
+const bytesToBenchmark = [10000, 100000, 1000000, 10000000, 100000000];
 
 const bench = noOfBytes => Promise.resolve().then(async () => {
 	const results = {};
