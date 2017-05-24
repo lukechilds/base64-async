@@ -7,7 +7,7 @@ test('b64.decode is a function', t => {
 });
 
 test('b64.decode returns a Promise', t => {
-	const returnValue = b64.decode(values.string);
+	const returnValue = b64.decode(values.base64);
 	t.true(returnValue instanceof Promise);
 });
 
