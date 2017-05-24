@@ -36,6 +36,7 @@
     "coveralls": "^2.13.1",
     "eslint-config-xo-lukechilds": "^1.0.0",
     "nyc": "^10.3.2",
+    "ora": "^1.2.0",
     "pretty-bytes": "^4.0.2",
     "xo": "^0.19.0"
   }

@@ -6,6 +6,9 @@ const crypto = require('crypto');
 const prettyBytes = require('pretty-bytes');
 const Table = require('cli-table');
 const b64 = require('../');
+const ora = require('ora');
+
+const spinner = ora().start();
 
 const bytesToBenchmark = [10000, 100000, 1000000, 10000000];
 
@@ -17,30 +20,31 @@ const timer = {
 const bench = noOfBytes => Promise.resolve().then(async () => {
 	const results = {};
 
-	console.log(`Generating ${prettyBytes(noOfBytes)} of random binary data...`);
+	const humanBytes = prettyBytes(noOfBytes);
+
+	spinner.text = `Generating ${humanBytes} of random binary data...`;
 	const randomBytes = crypto.randomBytes(noOfBytes);
 
-	console.log('Encoding sync...');
+	spinner.text = `Encoding ${humanBytes} sync`;
 	timer.reset();
 	const randomBytesBase64 = randomBytes.toString('base64');
 	results.encodeSync = timer.duration();
 
-	console.log('Decoding sync...');
+	spinner.text = `Decoding ${humanBytes} sync`;
 	timer.reset();
 	Buffer.from(randomBytesBase64, 'base64');
 	results.decodeSync = timer.duration();
 
-	console.log('Encoding async...');
+	spinner.text = `Encoding ${humanBytes} async`;
 	timer.reset();
 	await b64(randomBytes);
 	results.encodeAsync = timer.duration();
 
-	console.log('Decoding async...');
+	spinner.text = `Decoding ${humanBytes} async`;
 	timer.reset();
 	await b64(randomBytesBase64);
 	results.decodeAsync = timer.duration();
 
-	console.log();
 	return results;
 });
 
@@ -66,5 +70,6 @@ const bench = noOfBytes => Promise.resolve().then(async () => {
 		]);
 	}
 
+	spinner.stop();
 	console.log(table.toString());
 })();
