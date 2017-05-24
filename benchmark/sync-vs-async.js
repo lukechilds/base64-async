@@ -5,40 +5,37 @@
 const crypto = require('crypto');
 const prettyBytes = require('pretty-bytes');
 const Table = require('cli-table');
+const timeSpan = require('time-span');
 const b64 = require('../');
 
 const bytesToBenchmark = [10000, 100000, 1000000, 10000000];
 
-const timer = {
-	reset: () => timer.startTime = process.hrtime(),
-	duration: () => process.hrtime(timer.startTime)[1] / 1000000
-};
-
 const bench = noOfBytes => Promise.resolve().then(async () => {
 	const results = {};
+	let end;
 
 	console.log(`Generating ${prettyBytes(noOfBytes)} of random binary data...`);
 	const randomBytes = crypto.randomBytes(noOfBytes);
 
 	console.log('Encoding sync...');
-	timer.reset();
+	end = timeSpan();
 	const randomBytesBase64 = randomBytes.toString('base64');
-	results.encodeSync = timer.duration();
+	results.encodeSync = end();
 
 	console.log('Decoding sync...');
-	timer.reset();
+	end = timeSpan();
 	Buffer.from(randomBytesBase64, 'base64');
-	results.decodeSync = timer.duration();
+	results.decodeSync = end();
 
 	console.log('Encoding async...');
-	timer.reset();
+	end = timeSpan();
 	await b64(randomBytes);
-	results.encodeAsync = timer.duration();
+	results.encodeAsync = end();
 
 	console.log('Decoding async...');
-	timer.reset();
+	end = timeSpan();
 	await b64(randomBytesBase64);
-	results.decodeAsync = timer.duration();
+	results.decodeAsync = end();
 
 	console.log();
 	return results;
