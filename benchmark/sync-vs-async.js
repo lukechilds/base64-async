@@ -3,6 +3,7 @@
 const crypto = require('crypto');
 const b64 = require('../');
 const prettyBytes = require('pretty-bytes');
+const Table = require('cli-table');
 
 const bytesToBenchmark = [10000, 100000, 1000000, 10000000];
 
@@ -42,7 +43,26 @@ const bench = noOfBytes => Promise.resolve().then(async () => {
 });
 
 (async () => {
+  const table = new Table({
+    head: [
+      'Bytes',
+      'Encode Sync',
+      'Decode Sync',
+      'Encode Async',
+      'Decode Async'
+    ]
+  });
+
   for(noOfBytes of bytesToBenchmark) {
-    await bench(noOfBytes);
+    const results = await bench(noOfBytes);
+    table.push([
+      prettyBytes(noOfBytes),
+      results.encodeSync + 'ms',
+      results.decodeSync + 'ms',
+      results.encodeAsync + 'ms',
+      results.decodeAsync + 'ms'
+    ]);
   }
+
+  console.log(table.toString());
 })();
