@@ -10,34 +10,42 @@ const b64 = require('../');
 
 const bytesToBenchmark = [10000, 100000, 1000000, 10000000, 100000000];
 
+const log = text => {
+	process.stdout.clearLine();
+	process.stdout.cursorTo(0);
+	process.stdout.write(text);
+};
+
 const bench = noOfBytes => Promise.resolve().then(async () => {
 	const results = {};
+	const humanBytes = prettyBytes(noOfBytes);
 	let end;
 
-	console.log(`Generating ${prettyBytes(noOfBytes)} of random binary data...`);
+	log(`${humanBytes}: Generating random binary data...`);
 	const randomBytes = crypto.randomBytes(noOfBytes);
 
-	console.log('Encoding sync...');
+	log(`${humanBytes}: Encoding sync...`);
 	end = timeSpan();
 	const randomBytesBase64 = randomBytes.toString('base64');
 	results.encodeSync = end();
 
-	console.log('Decoding sync...');
+	log(`${humanBytes}: Decoding sync...`);
 	end = timeSpan();
 	Buffer.from(randomBytesBase64, 'base64');
 	results.decodeSync = end();
 
-	console.log('Encoding async...');
+	log(`${humanBytes}: Encoding async...`);
 	end = timeSpan();
 	await b64(randomBytes);
 	results.encodeAsync = end();
 
-	console.log('Decoding async...');
+	log(`${humanBytes}: Decoding async...`);
 	end = timeSpan();
 	await b64(randomBytesBase64);
 	results.decodeAsync = end();
 
-	console.log();
+	log(``);
+	
 	return results;
 });
 
