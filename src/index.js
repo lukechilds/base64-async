@@ -54,18 +54,17 @@ b64.decode = (input, opts) => new Promise(resolve => {
 	}
 
 	const stringLength = input.length;
+	const outputBuffers = [];
 	let currentIndex = 0;
-	let output = '';
 
 	setImmediate(function decodeChunk() {
 		const chunk = input.slice(currentIndex, currentIndex + opts.chunkSize);
-		output += Buffer.from(chunk, 'base64').toString('binary');
+		outputBuffers.push(Buffer.from(chunk, 'base64'));
 		currentIndex += opts.chunkSize;
 		if (currentIndex < stringLength) {
 			setImmediate(decodeChunk);
 		} else {
-			output = Buffer.from(output, 'binary');
-			resolve(output);
+			resolve(Buffer.concat(outputBuffers));
 		}
 	});
 });
