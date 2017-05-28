@@ -1,7 +1,7 @@
 'use strict';
 
 const validateOpts = (opts, chunkMultiple) => {
-	opts = Object.assign({}, { chunkSize: 10000 }, opts);
+	opts = Object.assign({}, { chunkSize: 250000 }, opts);
 
 	opts.chunkSize = Math.ceil(opts.chunkSize / chunkMultiple) * chunkMultiple;
 
