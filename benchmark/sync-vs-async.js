@@ -8,6 +8,7 @@ const Table = require('cli-table');
 const timeSpan = require('time-span');
 const b64 = require('../');
 
+const chunkSize = 250000;
 const bytesToBenchmark = [10000, 100000, 1000000, 10000000, 100000000];
 
 const log = text => {
@@ -36,16 +37,14 @@ const bench = noOfBytes => Promise.resolve().then(async () => {
 
 	log(`${humanBytes}: Encoding async...`);
 	end = timeSpan();
-	await b64(randomBytes);
+	await b64(randomBytes, { chunkSize });
 	results.encodeAsync = end();
 
 	log(`${humanBytes}: Decoding async...`);
 	end = timeSpan();
-	await b64(randomBytesBase64);
+	await b64(randomBytesBase64, { chunkSize });
 	results.decodeAsync = end();
 
-	log(``);
-	
 	return results;
 });
 
@@ -71,5 +70,6 @@ const bench = noOfBytes => Promise.resolve().then(async () => {
 		]);
 	}
 
+	log(`Benchmark completed with a chunk size of ${prettyBytes(chunkSize)}\n`);
 	console.log(table.toString());
 })();
