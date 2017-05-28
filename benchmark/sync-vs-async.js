@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* eslint-disable no-await-in-loop, no-return-assign */
+/* eslint-disable no-await-in-loop */
 
 const crypto = require('crypto');
 const prettyBytes = require('pretty-bytes');
