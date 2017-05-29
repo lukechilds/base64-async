@@ -5,7 +5,6 @@
   "main": "src/index.js",
   "scripts": {
     "bench": "node --harmony-async-await benchmark/sync-vs-async.js",
-    "bench:realword": "node --harmony-async-await benchmark/realworld.js",
     "example": "examples/blocking.js && echo && examples/non-blocking.js",
     "test": "xo && nyc ava",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
@@ -37,10 +36,7 @@
     "cli-table": "^0.3.1",
     "coveralls": "^2.13.1",
     "eslint-config-xo-lukechilds": "^1.0.0",
-    "get-port": "^3.1.0",
-    "got": "^6.7.1",
     "nyc": "^10.3.2",
-    "pify": "^3.0.0",
     "pretty-bytes": "^4.0.2",
     "time-span": "^2.0.0",
     "xo": "^0.19.0"
