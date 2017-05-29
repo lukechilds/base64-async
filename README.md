@@ -67,6 +67,29 @@ Base64 encode complete
 
 Notice how none of the async jobs can start until the Buffer API has finished encoding and stops blocking the event loop? With `base64-async` the async jobs can execute in-between each chunk of data.
 
+## Performance
+
+```
+$ npm run bench
+
+Benchmark completed with a chunk size of 250 kB
+┌────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+│ Bytes  │ Encode Sync  │ Decode Sync  │ Encode Async │ Decode Async │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 10 kB  │ 0.097225ms   │ 0.383031ms   │ 1.276201ms   │ 0.537687ms   │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 100 kB │ 0.198161ms   │ 0.271577ms   │ 0.99799ms    │ 0.356765ms   │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 1 MB   │ 1.924415ms   │ 2.038406ms   │ 2.679117ms   │ 2.544993ms   │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 10 MB  │ 15.749204ms  │ 16.280246ms  │ 33.666111ms  │ 29.918725ms  │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 100 MB │ 165.189455ms │ 195.298199ms │ 246.359068ms │ 280.792751ms │
+└────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+```
+
+As you can see, the total processing time is longer with `base64-async` (as we spend a lot of time paused waiting for the event loop). However, if you have an idea of the size of the data you'll be working with, you can play around with the chunk size to get better performance.
+
 ## License
 
 MIT © Luke Childs
