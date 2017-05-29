@@ -90,6 +90,21 @@ Benchmark completed with a chunk size of 250 kB
 
 As you can see, the total processing time is longer with `base64-async` (as we spend a lot of time paused waiting for the event loop). However, if you have an idea of the size of the data you'll be working with, you can play around with the chunk size to get better performance.
 
+The included benchmarking tool accepts arguments to help you test this:
+
+```
+$ npm run bench -- --chunkSize=1000000 --bytesToBenchmark=50000000,100000000
+
+Benchmark completed with a chunk size of 1 MB
+┌────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+│ Bytes  │ Encode Sync  │ Decode Sync  │ Encode Async │ Decode Async │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 50 MB  │ 79.675533ms  │ 87.251079ms  │ 92.400367ms  │ 137.468082ms │
+├────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+│ 100 MB │ 203.423705ms │ 173.567974ms │ 186.181857ms │ 264.123311ms │
+└────────┴──────────────┴──────────────┴──────────────┴──────────────┘
+```
+
 ## License
 
 MIT © Luke Childs
