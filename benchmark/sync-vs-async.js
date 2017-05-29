@@ -8,8 +8,13 @@ const Table = require('cli-table');
 const timeSpan = require('time-span');
 const b64 = require('../');
 
-const chunkSize = 250000;
-const bytesToBenchmark = [10000, 100000, 1000000, 10000000, 100000000];
+const argv = require('minimist')(process.argv.slice(2));
+
+const chunkSize = argv.chunkSize || 250000;
+const bytesToBenchmark = (
+	argv.bytesToBenchmark
+	&& argv.bytesToBenchmark.split(',').map(Number)
+) || [10000, 100000, 1000000, 10000000, 100000000];
 
 const log = text => {
 	process.stdout.clearLine();

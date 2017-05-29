@@ -36,6 +36,7 @@
     "cli-table": "^0.3.1",
     "coveralls": "^2.13.1",
     "eslint-config-xo-lukechilds": "^1.0.0",
+    "minimist": "^1.2.0",
     "nyc": "^10.3.2",
     "pretty-bytes": "^4.0.2",
     "time-span": "^2.0.0",
