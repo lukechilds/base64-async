@@ -43,6 +43,30 @@ const originalFileBuffer = await b64(b64String);
 // If no method is specified, buffers are encoded, strings are decoded
 ```
 
+## Example
+
+```
+$ npm run example
+
+Registering 4 asynchronous jobs...
+Encoding 100 MB with default Node.js Buffer API...
+Base64 encode complete
+Hi, I'm an asynchronous job, and I'm late by 231ms
+Hi, I'm an asynchronous job, and I'm late by 238ms
+Hi, I'm an asynchronous job, and I'm late by 239ms
+Hi, I'm an asynchronous job, and I'm late by 245ms
+
+Registering 4 asynchronous jobs...
+Encoding 100 MB with base64-async in chunks of 250 kB...
+Hi, I'm an asynchronous job, and I'm on time
+Hi, I'm an asynchronous job, and I'm on time
+Hi, I'm an asynchronous job, and I'm on time
+Hi, I'm an asynchronous job, and I'm on time
+Base64 encode complete
+```
+
+Notice how none of the async jobs can start until the Buffer API has finished encoding and stops blocking the event loop? With `base64-async` the async jobs can execute in-between each chunk of data.
+
 ## License
 
 MIT © Luke Childs
