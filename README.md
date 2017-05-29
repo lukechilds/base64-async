@@ -65,6 +65,8 @@ Hi, I'm an asynchronous job, and I'm on time
 Base64 encode complete
 ```
 
+([example source code](/examples))
+
 Notice how none of the async jobs can start until the Buffer API has finished encoding and stops blocking the event loop? With `base64-async` the async jobs can execute in-between each chunk of data.
 
 ## Performance
