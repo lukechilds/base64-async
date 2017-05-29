@@ -1,6 +1,6 @@
 # base64-async
 
-> Non-blocking chunked base64 encoding
+> Non-blocking chunked Base64 encoding
 
 [![Build Status](https://travis-ci.org/lukechilds/base64-async.svg?branch=master)](https://travis-ci.org/lukechilds/base64-async)
 [![Coverage Status](https://coveralls.io/repos/github/lukechilds/base64-async/badge.svg?branch=master)](https://coveralls.io/github/lukechilds/base64-async?branch=master)
