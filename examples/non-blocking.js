@@ -11,7 +11,9 @@ const asyncStart = Date.now();
 
 let i = 0;
 const asyncId = setInterval(() => {
-	if (++i >= 4) clearInterval(asyncId);
+	if (++i >= 4) {
+		clearInterval(asyncId);
+	}
 
 	const late = Date.now() - (asyncStart + (interval * i));
 	console.log(`Hi, I'm an asynchronous job, and I'm ${late > 10 ? `late by ${late}ms` : 'on time'}`);
@@ -21,4 +23,4 @@ console.log('Encoding with base64-async');
 console.log(`Encoding ${prettyBytes(bytes)} in chunks of ${prettyBytes(chunkSize)}...`);
 b64(buf, { chunkSize }).then(() => {
 	console.log('Base64 encode complete');
-})
+});

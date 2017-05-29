@@ -6,14 +6,15 @@ const crypto = require('crypto');
 const prettyBytes = require('pretty-bytes');
 const Table = require('cli-table');
 const timeSpan = require('time-span');
+const minimist = require('minimist');
 const b64 = require('../');
 
-const argv = require('minimist')(process.argv.slice(2));
+const argv = minimist(process.argv.slice(2));
 
 const chunkSize = argv.chunkSize || 250000;
 const bytesToBenchmark = (
-	argv.bytesToBenchmark
-	&& argv.bytesToBenchmark.split(',').map(Number)
+	argv.bytesToBenchmark &&
+	argv.bytesToBenchmark.split(',').map(Number)
 ) || [10000, 100000, 1000000, 10000000, 100000000];
 
 const log = text => {
