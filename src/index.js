@@ -1,5 +1,8 @@
 'use strict';
 
+const maxConcurrentJobs = 5;
+let activeJobs = 0;
+
 const validateOpts = (opts, chunkMultiple) => {
 	opts = Object.assign({}, { chunkSize: 250000 }, opts);
 
@@ -33,7 +36,7 @@ b64.encode = (input, opts) => new Promise(resolve => {
 	let currentIndex = 0;
 	let output = '';
 
-	setImmediate(function encodeChunk() {
+	const encodeChunk = () => {
 		const chunk = input.slice(currentIndex, currentIndex + opts.chunkSize);
 		output += chunk.toString('base64');
 		currentIndex += opts.chunkSize;
@@ -42,7 +45,15 @@ b64.encode = (input, opts) => new Promise(resolve => {
 		} else {
 			resolve(output);
 		}
-	});
+		activeJobs--;
+	};
+
+	if (activeJobs < maxConcurrentJobs) {
+		activeJobs++;
+		setImmediate(encodeChunk);
+	} else {
+		setImmediate(() => setImmediate(encodeChunk));
+	}
 });
 
 b64.decode = (input, opts) => new Promise(resolve => {
@@ -58,6 +69,10 @@ b64.decode = (input, opts) => new Promise(resolve => {
 	let currentIndex = 0;
 
 	setImmediate(function decodeChunk() {
+		if (activeJobs >= maxConcurrentJobs) {
+			return setImmediate(decodeChunk);
+		}
+		activeJobs++;
 		const chunk = input.slice(currentIndex, currentIndex + opts.chunkSize);
 		outputBuffers.push(Buffer.from(chunk, 'base64'));
 		currentIndex += opts.chunkSize;
@@ -66,6 +81,7 @@ b64.decode = (input, opts) => new Promise(resolve => {
 		} else {
 			resolve(Buffer.concat(outputBuffers));
 		}
+		activeJobs--;
 	});
 });
 
