@@ -1,5 +1,7 @@
 'use strict';
 
+/* eslint-disable no-var */
+
 const validateOpts = (opts, chunkMultiple) => {
 	opts = Object.assign({}, { chunkSize: 250000 }, opts);
 
