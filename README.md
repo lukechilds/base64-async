@@ -6,6 +6,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/lukechilds/base64-async/badge.svg?branch=master)](https://coveralls.io/github/lukechilds/base64-async?branch=master)
 [![npm](https://img.shields.io/npm/v/base64-async.svg)](https://www.npmjs.com/package/base64-async)
 
+Process large Base64 documents without blocking the event loop.
+
+Configurable chunk size option to optimise for your use case.
+
 ## Install
 
 ```shell
