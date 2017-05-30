@@ -12,7 +12,7 @@ Configurable chunk size option to optimise for your use case.
 
 > **Note:**
 >
-> Base64 in Node.js is already crazy fast. Breaking the work up into chunks and adding async logic adds overhead. If you aren't dealing with large files it will probably be more performant to just block the event loop for the small amount of time it takes Node.js to process Base64 synchronously.
+> Base64 in Node.js is already crazy fast. Breaking the work up into chunks and adding async logic adds overhead. If you aren't dealing with large files it will probably be more efficient to just block the event loop for the small amount of time it takes Node.js to process Base64 synchronously.
 
 ## Install
 
