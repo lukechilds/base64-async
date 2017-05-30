@@ -90,7 +90,7 @@ Benchmark completed with a chunk size of 250 kB
 └────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
-As you can see, the total processing time is longer with `base64-async` (as we spend a lot of time paused waiting for the event loop). However, if you have an idea of the size of the data you'll be working with, you can play around with the chunk size to get better performance.
+As you can see, the total processing time is longer with `base64-async` (as we spend some time paused waiting for the event loop). However, if you have an idea of the size of the data you'll be working with, you can play around with the chunk size to get better performance.
 
 The included benchmarking tool accepts arguments to help you test this:
 
