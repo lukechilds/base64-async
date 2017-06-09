@@ -107,6 +107,51 @@ Benchmark completed with a chunk size of 1 MB
 └────────┴──────────────┴──────────────┴──────────────┴──────────────┘
 ```
 
+## API
+
+### b64(input, [options])
+
+Returns a Promise that resolves to the Base64 encoded/decoded input.
+
+#### input
+
+Type: `string`, `buffer`
+
+A Base64 string to decode, or a Buffer to encode.
+
+#### options
+
+Type: `object`
+
+##### options.chunkSize
+
+Type: `number`<br>
+Default: `250000`
+
+Size of the chunk of data to work on before deferring execution to the next iteration of the event loop.
+
+If encoding, the number is interpreted as number of bytes. If decoding, the number is interpreted as number of characters.
+
+### b64.encode(input, [options])
+
+Returns a Promise that resolves to a Base64 encoded string.
+
+#### input
+
+Type: `buffer`
+
+A Buffer to encode.
+
+### b64.decode(input, [options])
+
+Returns a Promise that resolves to a decoded Buffer.
+
+#### input
+
+Type: `string`
+
+A Base64 string to decode.
+
 ## License
 
 MIT © Luke Childs
