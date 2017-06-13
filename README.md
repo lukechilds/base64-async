@@ -1,5 +1,7 @@
 # base64-async
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/lukechilds/base64-async.svg)](https://greenkeeper.io/)
+
 > Non-blocking chunked Base64 encoding
 
 [![Build Status](https://travis-ci.org/lukechilds/base64-async.svg?branch=master)](https://travis-ci.org/lukechilds/base64-async)
