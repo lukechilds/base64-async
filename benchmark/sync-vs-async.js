@@ -2,7 +2,6 @@
 
 /* eslint-disable no-await-in-loop */
 
-const crypto = require('crypto');
 const prettyBytes = require('pretty-bytes');
 const Table = require('cli-table');
 const timeSpan = require('time-span');
@@ -26,29 +25,27 @@ const log = text => {
 const bench = noOfBytes => Promise.resolve().then(async () => {
 	const results = {};
 	const humanBytes = prettyBytes(noOfBytes);
+	const buffer = Buffer.alloc(noOfBytes);
 	let end;
-
-	log(`${humanBytes}: Generating random binary data...`);
-	const randomBytes = crypto.randomBytes(noOfBytes);
 
 	log(`${humanBytes}: Encoding sync...`);
 	end = timeSpan();
-	const randomBytesBase64 = randomBytes.toString('base64');
+	const bufferBase64 = buffer.toString('base64');
 	results.encodeSync = end();
 
 	log(`${humanBytes}: Decoding sync...`);
 	end = timeSpan();
-	Buffer.from(randomBytesBase64, 'base64');
+	Buffer.from(bufferBase64, 'base64');
 	results.decodeSync = end();
 
 	log(`${humanBytes}: Encoding async...`);
 	end = timeSpan();
-	await b64(randomBytes, { chunkSize });
+	await b64(buffer, { chunkSize });
 	results.encodeAsync = end();
 
 	log(`${humanBytes}: Decoding async...`);
 	end = timeSpan();
-	await b64(randomBytesBase64, { chunkSize });
+	await b64(bufferBase64, { chunkSize });
 	results.decodeAsync = end();
 
 	return results;
