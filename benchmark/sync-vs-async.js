@@ -17,9 +17,11 @@ const bytesToBenchmark = (
 ) || [10000, 100000, 1000000, 10000000, 100000000];
 
 const log = text => {
-	process.stdout.clearLine();
-	process.stdout.cursorTo(0);
-	process.stdout.write(text);
+	if (process.stdout.clearLine) {
+		process.stdout.clearLine();
+		process.stdout.cursorTo(0);
+		process.stdout.write(text);
+	}
 };
 
 const bench = noOfBytes => Promise.resolve().then(async () => {
