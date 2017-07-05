@@ -25,7 +25,7 @@ npm install --save base64-async
 ```js
 const b64 = require('base64-async');
 const fs = require('fs');
-const buffer = fs.readFileSync('somehugefile.jpg');
+const fileBuffer = fs.readFileSync('somehugefile.jpg');
 
 b64.encode(fileBuffer).then(b64String => console.log(b64String));
 // aGkgbXVt...
