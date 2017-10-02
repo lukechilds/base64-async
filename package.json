@@ -34,7 +34,7 @@
   "devDependencies": {
     "ava": "^0.22.0",
     "cli-table": "^0.3.1",
-    "coveralls": "^2.13.1",
+    "coveralls": "^3.0.0",
     "eslint-config-xo-lukechilds": "^1.0.0",
     "minimist": "^1.2.0",
     "nyc": "^11.0.2",
