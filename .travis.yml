@@ -3,6 +3,7 @@ node_js:
   - '7'
   - '6'
   - '4'
+  - '10'
 script: npm test
 after_success: npm run coverage; npm run bench
 notifications:
